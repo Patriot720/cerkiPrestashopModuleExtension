@@ -1,0 +1,16 @@
+{
+    "name": "cerki/prestashop-module-extension",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Andrew",
+            "email": "cerkin-3@yandex.ru"
+        }
+    ],
+    "require": {},
+    "autoload":{
+        "psr-4":{
+        "cerkiPrestashopModuleExtension\\":"/"
+        }
+    }
+}
