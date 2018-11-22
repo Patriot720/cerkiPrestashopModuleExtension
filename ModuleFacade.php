@@ -40,7 +40,7 @@ class ModuleFacade{
     function getToken(){
         return $this->module->getToken();
     }
-    function getModuleDir(){
+    function getDir(){
         return $this->module->getModuleDir();
     }
 
