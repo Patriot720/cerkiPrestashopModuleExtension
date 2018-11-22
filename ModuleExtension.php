@@ -5,6 +5,7 @@ use cerkiPrestashopModuleExtension\ModuleFacade;
 use cerkiPrestashopModuleExtension\Factories\GatewayFactory;
 use cerkiPrestashopModuleExtension\Controllers\cerkiPrestashopModuleExtensionController;
 use cerkiPrestashopModuleExtension\ModuleExtension;
+// TODO class too complex 
 abstract class ModuleExtension extends \Module{
 
     function constructModule(){
@@ -27,19 +28,13 @@ abstract class ModuleExtension extends \Module{
         $reflection = new \ReflectionClass($this);
         return $reflection->getFileName();
     }
+
     function getValue($id){
         return \Tools::getValue($id);
     }
+
     function getToken(){
         return \Tools::getAdminTokenLite('AdminModules');
-    }
-    function getDir(){
-        $reflection = new \ReflectionClass($this);
-        return dirname($reflection->getFileName());
-    }
-
-    function getHookNames(){
-        Util::getHookNames($this);
     }
 
     function addJqueryPlugin($name){
@@ -67,6 +62,15 @@ abstract class ModuleExtension extends \Module{
 
     function getControllerLink($controller_name){
         return $this->context->link->getModuleLink($this->name,$controller_name);
+    }
+
+    private function getDir(){
+        $reflection = new \ReflectionClass($this);
+        return dirname($reflection->getFileName());
+    }
+
+    private function getHookNames(){
+        Util::getHookNames($this);
     }
 
 }
