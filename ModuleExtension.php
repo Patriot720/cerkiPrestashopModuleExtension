@@ -23,12 +23,6 @@ abstract class ModuleExtension extends \Module{
         return true;
     }
 
-    function getSmarty(){
-        return $this->smarty;
-    }
-    function getContext(){
-        return $this->context;
-    }
     function getFilePath(){
         $reflection = new \ReflectionClass($this);
         return $reflection->getFileName();
@@ -39,17 +33,41 @@ abstract class ModuleExtension extends \Module{
     function getToken(){
         return \Tools::getAdminTokenLite('AdminModules');
     }
-    function getModuleDir(){
+    function getDir(){
         $reflection = new \ReflectionClass($this);
         return dirname($reflection->getFileName());
-    }
-    function getContent()
-    {
-        return $this->controller->getContent();
     }
 
     function getHookNames(){
         Util::getHookNames($this);
     }
+
+    function addJqueryPlugin($name){
+        $this->context->controller->addJqueryPlugin($name);
+    }
+
+    function addJS($path){
+        if(strpos($path,'www') !== FALSE) // TODO not reliable
+        {
+            assert(file_exists($path),'JS Path is wrong or file doesnt exist ' . $path);
+        }
+        else{
+            assert(file_exists($_SERVER['DOCUMENT_ROOT'].$path),'JS Path is wrong or file doesnt exist ' . $path); // TODO refactor
+        }
+        $this->context->controller->addJS($path);
+    }
+
+    function display($template){
+        return $this->display($this->getFilePath(),$template);
+    }
+
+    function smarty_assign($variables){
+        $this->smarty->assign($variables);
+    }
+
+    function getControllerLink($controller_name){
+        return $this->context->link->getModuleLink($this->name,$controller_name);
+    }
+
 }
 
