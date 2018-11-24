@@ -70,7 +70,7 @@ abstract class ModuleExtension extends \Module{
     }
 
     private function getHookNames(){
-        Util::getHookNames($this);
+        return Util::getHookNames($this);
     }
 
 }
