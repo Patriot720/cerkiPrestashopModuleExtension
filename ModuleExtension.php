@@ -55,9 +55,6 @@ abstract class ModuleExtension extends \Module{
         $this->context->controller->addJS($path);
     }
 
-    function display($template){
-        return $this->display($this->getFilePath(),$template);
-    }
 
     function smarty_assign($variables){
         $this->smarty->assign($variables);
