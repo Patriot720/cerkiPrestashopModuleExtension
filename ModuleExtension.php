@@ -1,6 +1,6 @@
 <?php
-
 namespace cerkiPrestashopModuleExtension;
+require_once __DIR__ . '/smarty_extensions/functions.php';
 use cerkiPrestashopModuleExtension\ModuleFacade;
 use cerkiPrestashopModuleExtension\Factories\GatewayFactory;
 use cerkiPrestashopModuleExtension\Controllers\cerkiPrestashopModuleExtensionController;
@@ -14,6 +14,9 @@ abstract class ModuleExtension extends \Module{
         // $this->JSPlugin = new JSPlugin();
         //
         parent::__construct();
+        //var_dump($this->smarty);
+        //$this->smarty->smarty->addPluginsDir(__DIR__ .'/smarty_extensions/');
+        //$this->smarty->smarty->registerPlugin("function","keepo","smarty_function_keepo");
     }
 
     abstract function getController();
@@ -29,7 +32,7 @@ abstract class ModuleExtension extends \Module{
         }
         return true;
     }
-
+    
     function getFilePath(){
         $reflection = new \ReflectionClass($this);
         return $reflection->getFileName();
