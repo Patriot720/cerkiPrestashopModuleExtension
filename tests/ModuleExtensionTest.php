@@ -20,6 +20,8 @@ class ModuleExtensionTest extends TestCase{
 
     function test_installation(){
         $this->module->install();
+        $this->assertNotEmpty($this->module->hooks);
+        $this->assertEquals($this->module->hooks[0],'home');
     }
 
 
@@ -30,6 +32,12 @@ class MockModule extends ModuleExtension{
     }
 }
 class Module{
+    function __construct(){
+    $this->hooks = [];
+    }
+    function registerHook($string){
+        array_push($this->hooks,$string);
+    }
     function install(){
     }
     function hookHome(){

@@ -2,8 +2,8 @@
 namespace cerkiPrestashopModuleExtension\Controllers;
 abstract class BaseController{
 
-    function __construct($moduleFacade){
-        $this->module = $moduleFacade;
+    function __construct($module){
+        $this->module = $module;
     }
 
     function getContent(){
@@ -21,7 +21,8 @@ abstract class BaseController{
     }
 
     abstract function displayPage();
-    abstract function addJSPlugins();
+    function addJSPlugins(){
+    }
 
     protected function smarty_assign($array){
         return $this->module->smarty_assign($array);
