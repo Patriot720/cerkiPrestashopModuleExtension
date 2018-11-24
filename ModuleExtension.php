@@ -10,6 +10,9 @@ abstract class ModuleExtension extends \Module{
 
     function constructModule(){
         $this->controller = $this->getController();
+        // $this->smartyFacade = new SmartyFacade();
+        // $this->JSPlugin = new JSPlugin();
+        //
         parent::__construct();
     }
 
