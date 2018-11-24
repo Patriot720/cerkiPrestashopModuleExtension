@@ -17,6 +17,9 @@ abstract class ModuleExtension extends \Module{
     }
 
     abstract function getController();
+    function getContent(){
+        return $this->getController()->getContent();
+    }
 
     public function install()
     {
