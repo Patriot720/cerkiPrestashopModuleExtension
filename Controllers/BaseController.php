@@ -29,7 +29,7 @@ abstract class BaseController{
     }
 
     protected function display($smarty_template){
-        return $this->module->display($smarty_template);
+        return $this->module->display($this->module->getFilePath(),$smarty_template);
     }
 
     protected function getValue($id){
