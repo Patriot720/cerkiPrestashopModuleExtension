@@ -15,13 +15,22 @@ function smarty_block_form($params,$content,&$smarty,&$repeat){
         $title = isset($params['title']) ? $params['title'] : '';
         $button_text = isset($params['button_text']) ? $params['button_text'] : 'submit';
         $method = isset($params['method']) ? $params['method'] : 'POST';
-        $content = "
-        <form  class='defaultForm form-horizontal' method='{$method}'>
+        $template_vars = $smarty->getTemplateVars();
+        $token = isset($template_vars['token']) ? $template_vars['token'] : '';
+        $module_name = isset($template_vars['module_name']) ? $template_vars['module_name'] : '';
+        $preform = "
+        <form  class='defaultForm form-horizontal' method='{$method}'>";
+        if($token && $module_name){
+        $preform .= "<input type='hidden' name='controller' value='AdminModules'>";
+        $preform .= "<input type='hidden' name='configure' value='{$module_name}'>";
+        $preform .= "<input type='hidden' name='token' value='{$token}'>";
+        }
+        $preform .= "
         <div class='panel'>
         <div class='panel-heading'>{$title}</div>
         <div class='form-wrapper'>
-            " . $content;
-        $content .= "
+            ";
+        $postform = "
         </div>
         <div class='panel-footer'>
             <button class='btn btn-default pull-right' type='submit'>
@@ -31,7 +40,7 @@ function smarty_block_form($params,$content,&$smarty,&$repeat){
         </div>
         </form>
 ";
-        return $content;
+        return $preform . $content . $postform;
     }
 }
 function smarty_function_input_text($params,&$smarty){
