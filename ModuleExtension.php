@@ -1,5 +1,6 @@
 <?php
 namespace cerkiPrestashopModuleExtension;
+require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/smarty_extensions/functions.php';
 use cerkiPrestashopModuleExtension\ModuleFacade;
 use cerkiPrestashopModuleExtension\Factories\GatewayFactory;

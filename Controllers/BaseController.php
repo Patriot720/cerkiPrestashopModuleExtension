@@ -15,14 +15,19 @@ abstract class BaseController{
         return $this->handleAction();
     }
 
+    protected function addJSPlugins(){
+        $this->addJS(_PS_JS_DIR_ . 'tiny_mce/tiny_mce.js');
+        $this->addJqueryPlugin('tablednd');
+        $this->addJS(_PS_JS_DIR_ . 'admin/dnd.js');
+        $this->addJS(_PS_JS_DIR_ . 'admin/tinymce.inc.js'); // TODO ps js dir outsider
+        $this->addJS(__DIR__ . '/../js/setup.js');
+    }
     function handleAction(){
         $method = $this->module->getValue('action');
         return $method ? $this->{$method}() : $this->displayPage();
     }
 
     abstract function displayPage();
-    function addJSPlugins(){
-    }
 
     protected function smarty_assign($array){
         return $this->module->smarty_assign($array);

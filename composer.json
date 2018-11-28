@@ -7,7 +7,9 @@
             "email": "cerkin-3@yandex.ru"
         }
     ],
-    "require": {},
+    "require": {
+        "paquettg/php-html-parser": "^1.7"
+    },
     "autoload":{
         "psr-4":{
         "cerkiPrestashopModuleExtension\\":"/"
