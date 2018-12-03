@@ -1,13 +1,36 @@
 <?php
 require_once __DIR__ . '/form_functions.php';
+require_once __DIR__ . '/modifiers.php';
 use PHPHtmlParser\Dom;
-
 function smarty_block_panel($params,$content,&$smarty,&$repeat){
     if(!$repeat){
-        $content = "<div class='panel'>" . $content;
+        $heading = isset($params['heading']) ? $params['heading'] : '';
+        $content = "<div class='panel d-flex align-items-stretch'>
+                    " . $content;
         $content .= '</div>';
         return $content;
     }
+}
+function smarty_block_panel_header($params,$content,&$smarty,&$repeat){
+    if(!$repeat){
+        return "<div class='panel-heading'>
+                    ${content}
+                    </div>";
+    }
+}
+
+function smarty_function_panel_submit_button($params,&$smarty){
+    $current = $smarty->getTemplateVars('current');
+    $module_name = $smarty->getTemplateVars('module_name');
+    $token = $smarty->getTemplateVars('token');
+    $action = $params['action'];
+    $button_text = $params['button_text'];
+        return "
+    <div class='panel-footer'>
+        <a href='${current}&configure=${module_name}&token=${token}&action=${action}' class='btn btn-default pull-right'>
+            ${button_text}</a>
+    </div>
+";
 }
 
 function smarty_block_table($params,$content,&$smarty,&$repeat){
@@ -29,10 +52,6 @@ function smarty_block_table($params,$content,&$smarty,&$repeat){
             $table_body .= $row->outerHtml;
         }
         $precontent = "
-                <div class='panel d-flex align-items-stretch'>
-                    <div class='panel-heading'>
-                    ${heading}
-                    </div>
                     <table class='table tableDnD cms' id='${table_id}'>
                     <thead>
                         <tr class='nodrag nodrop'>
@@ -43,7 +62,6 @@ function smarty_block_table($params,$content,&$smarty,&$repeat){
                         ${table_body}
                     </tbody>
                     </table>
-                </div>
     <script>
    var come_from = 'AdminModulesPositions';
    currentIndex = currentIndex + '&configure={$module_name}' // HACK SOLUTION
@@ -55,11 +73,13 @@ function smarty_block_table($params,$content,&$smarty,&$repeat){
 }
 function smarty_function_column_buttons($params,&$smarty){
     $edit_action = $params['edit_action'];
+    unset($params['edit_action']);
     $delete_action = $params['delete_action'];
+    unset($params['delete_action']);
     $current = $smarty->getTemplateVars('current');
     $module_name = $smarty->getTemplateVars('module_name');
     $token = $smarty->getTemplateVars('token');
-    $other_data = isset($params['other_data']) ? $params['other_data'] : '';
+    $other_data = http_build_query($params);
     $result = "
     <td>
                                     <div class='btn-group-action'>

@@ -90,23 +90,24 @@ function smarty_function_input_switch($params,&$smarty){
     return $slider;
 }
 
-function smarty_function_input_textarea($params,&$smarty){
+function smarty_function_input_text_area($params,&$smarty){
     $label = $params['label'];
     $rows = isset($params['rows']) ? $params['rows'] : 3;
     $disable_rte = isset($params['disable_rte']) ? '' : 'rte autoload_rte';
-    $text = isset($params['text']) ? $params['text'] : '';
+    $value = isset($params['value']) ? $params['value'] : '';
 return 
 "<div class='form-group'>
     <label class='control-label col-lg-3'>{$label}</label>
     <div class='col-lg-9'>
-        <textarea class='form-control {$disable_rte}' name='text' id='text' rows='{$rows}'>{$text}</textarea>
+        <textarea class='form-control {$disable_rte}' name='text' id='text' rows='{$rows}'>{$value}</textarea>
     </div>
 </div>";
 }
 
 function smarty_function_input_image($params,&$smarty){
     $name = $params['name'];
-    $image_url = isset($params['image_url']) ? $image_url : '';
+    $value = isset($params['value']) ? $params['value'] : '';
+    $label = isset($params['label']) ? $params['label'] : ''; // TODO generalize thissss
     $frame = $smarty->getTemplateVars()['frame'];
     $button_text = isset($params['button_text']) ? $button_text : 'Add image';
     return "
@@ -114,7 +115,7 @@ function smarty_function_input_image($params,&$smarty){
     <label class='control-label col-lg-3'>label</label>
     <div class='col-lg-9'>
         <div class='input-group'>
-            <input type='text' aria-describedby='helpId' name='{$name}' value='{$image_url}'>
+            <input type='text' aria-describedby='helpId' name='{$name}' value='{$value}'>
             <span class='input-group-btn'>
                 <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#{$name}_modal'>{$button_text}</button>
             </span>
