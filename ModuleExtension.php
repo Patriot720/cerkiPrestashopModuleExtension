@@ -72,7 +72,7 @@ abstract class ModuleExtension extends \Module{
         return $this->context->link->getModuleLink($this->name,$controller_name);
     }
 
-    private function getDir(){
+    function getDir(){
         $reflection = new \ReflectionClass($this);
         return dirname($reflection->getFileName());
     }
